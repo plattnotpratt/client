@@ -1,10 +1,15 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <NavBar></NavBar>
+  <div class='container-md'>
+    <Suspense>
+    <router-view></router-view>
+  </Suspense>
+  </div>
 </template>
+
+<script setup>
+  import NavBar from '@/components/NavBarComponent.vue';
+</script>
 
 <style lang="scss">
 #app {
