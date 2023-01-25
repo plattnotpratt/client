@@ -1,6 +1,6 @@
 <template>
   <NavBar></NavBar>
-  <div class='container-md'>
+  <div class='container overflow-hidden'>
     <Suspense>
     <router-view></router-view>
   </Suspense>

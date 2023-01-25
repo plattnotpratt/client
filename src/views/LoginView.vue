@@ -1,3 +1,29 @@
+<script setup>
+import { storeAuthToken } from '@/hooks/auth-hook';
+import router from '@/router';
+import { ref } from 'vue';
+const email = ref('');
+const password = ref('');
+const API_URL = 'http://localhost:4242/auth/login'
+
+
+async function loginUser() {
+  const response = await fetch(API_URL, {
+    method: "POST",
+    headers:{
+      'Content-Type': 'application/json',
+    },
+    body:JSON.stringify({
+      email: email.value,
+      password: password.value,
+    }),
+  });
+  const json = await response.json();
+  storeAuthToken(json.token);
+  router.push({name: 'dashboard'});
+}
+</script>
+
 <!-- eslint-disable vuejs-accessibility/label-has-for -->
 <template>
   <div class="row m-5">
@@ -40,28 +66,3 @@
 </div>
 </template>
 
-<script setup>
-  import { storeAuthToken } from '@/hooks/auth-hook';
-  import router from '@/router';
-  import { ref } from 'vue';
-  const email = ref('');
-  const password = ref('');
-  const API_URL = 'http://localhost:4242/auth/login'
-
-
-  async function loginUser() {
-    const response = await fetch(API_URL, {
-      method: "POST",
-      headers:{
-        'Content-Type': 'application/json',
-      },
-      body:JSON.stringify({
-        email: email.value,
-        password: password.value,
-      }),
-    });
-    const json = await response.json();
-    storeAuthToken(json.token);
-    router.push({name: 'dashboard'});
-  }
-</script>

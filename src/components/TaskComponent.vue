@@ -1,0 +1,8 @@
+<script setup>
+defineProps(['task']);
+
+</script>
+
+<template>
+  <li class="list-group-item ">{{ task.title }}</li>
+</template>

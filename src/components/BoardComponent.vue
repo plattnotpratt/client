@@ -1,17 +1,36 @@
+<script setup>
+import TaskComponent from '@/components/TaskComponent.vue';
+import { removeBoard } from '@/hooks/board-hook';
+import { defineProps } from 'vue';
+import router from '@/router';
+defineProps(['board'])
+function updateBoard(id){
+  router.push({
+    name: 'update-board',
+    params: {
+      id: id
+    },
+  });
+}
+
+
+
+</script>
+
 <template>
-  <div class="card col-4">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">An item</li>
-    <li class="list-group-item">A second item</li>
-    <li class="list-group-item">A third item</li>
-  </ul>
-  <div class="card-body">
-    <a href="#" class="card-link">Card link</a>
-    <a href="#" class="card-link">Another link</a>
+  <div class="col g-3">
+  <div class="card">
+    <div class="card-header"> 
+      <button type="button" @click="updateBoard(board.id)" class="btn btn-outline-primary float-start">Edit</button>
+      <button type="button" @click="$emit('removeBoard', board.id)" class="btn btn-outline-danger float-end">Delete</button>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{ board.title }}</h5>
+      <p class="card-text">{{ board.description}}</p>
+    </div>
+    <ul class="list-group list-group-flush text-left">
+      <TaskComponent :task="task" v-for="task in board.tasks" :key="task.id"></TaskComponent>
+    </ul>
   </div>
 </div>
 </template>

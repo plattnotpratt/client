@@ -1,4 +1,12 @@
-<!-- eslint-disable vuejs-accessibility/label-has-for -->
+<script setup>
+  import router from '@/router';
+  import BoardComponent from '@/components/BoardComponent.vue';
+  import { getBoards, removeBoard } from '@/hooks/board-hook';
+  import { ref } from 'vue';
+  
+  const boards = ref([]);
+  boards.value = await getBoards();
+</script>
 <template>
   <div>
   <div class="row m-5">
@@ -6,31 +14,19 @@
   </div>
 
   <div class="row">
-    <BoardComponent v-for="board in boards" :key="board.id">{{ board }}</BoardComponent>
+    <router-link to="/create-board" type="button" class="btn btn-success">Create Board</router-link>
+  </div>
+  <div class="row row-cols-lg-3 row-cols-md-2 row-cols-1">
+
+    <BoardComponent 
+    @remove-board="removeBoard" 
+    v-for="board in boards" 
+    :key="board.id" 
+    :board="board" >
+    </BoardComponent>
 
   </div>
 </div>
 </template>
 
-<script setup>
-  import router from '@/router';
-  import BoardComponent from '@/components/BoardComponent.vue';
-  import { ref } from 'vue';
 
-  const API_URL = 'http://localhost:4242/api/v1/boards/'
-  const boards = ref([]);
-  async function getBoards() {
-    const response = await fetch(API_URL, {
-      headers:{
-        'Content-Type': 'application/json',
-        authorization: `Bearer ${localStorage.token}`,
-      },
-    });
-    const boards = await response.json();
-    console.log(boards);
-    return boards;
-  }
-
-  boards.value = await getBoards();
-  console.log(boards.value);
-</script>
