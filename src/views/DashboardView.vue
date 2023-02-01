@@ -1,11 +1,15 @@
 <script setup>
   import router from '@/router';
-  import BoardComponent from '@/components/BoardComponent.vue';
+  import BoardListComponent from '@/components/BoardListComponent.vue';
   import { getBoards, removeBoard } from '@/hooks/board-hook';
-  import { ref } from 'vue';
-  
+  import { ref, defineEmits} from 'vue';
+
   const boards = ref([]);
   boards.value = await getBoards();
+
+  async function reloadBoards(){
+    boards.value = await getBoards();
+  }
 </script>
 <template>
   <div>
@@ -18,12 +22,13 @@
   </div>
   <div class="row row-cols-lg-3 row-cols-md-2 row-cols-1">
 
-    <BoardComponent 
-    @remove-board="removeBoard" 
+    <BoardListComponent 
+    @remove-board="removeBoard"
+    @reload="reloadBoards"
     v-for="board in boards" 
     :key="board.id" 
     :board="board" >
-    </BoardComponent>
+    </BoardListComponent>
 
   </div>
 </div>

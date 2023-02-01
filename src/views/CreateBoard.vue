@@ -15,11 +15,11 @@
     <h1>Create Board</h1>
   </div>
   <BoardForm
-  @submit-form="createBoard" 
-  :board="board"
-  >
-  <template #submit-button>
-    Create
-  </template>
+    @submit-form="createBoard" 
+    :board="board"
+    >
+    <template #submit-button>
+      Create
+    </template>
   </BoardForm>
 </template>

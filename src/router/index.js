@@ -46,6 +46,21 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "updateBoard" */ '../views/UpdateBoard.vue'),
+  },
+  {
+    path: '/view-board/:id',
+    name: 'view-board',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "viewboard" */ '../views/ViewBoard.vue'),
+  },{
+    path: '/create-task/:id',
+    name: 'create-task',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "createtask" */ '../views/CreateTask.vue'),
   },];
 
 const router = createRouter({

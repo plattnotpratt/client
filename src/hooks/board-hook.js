@@ -4,8 +4,7 @@ import router from '@/router';
 import { Router } from 'vue-router';
 
 export async function removeBoard(id){
-  const API_URL = `${API_URL}/boards/${id}`;
-  const response = await fetch(API_URL, {
+  const response = await fetch(`${API_URL}/boards/${id}`, {
     method: "DELETE", 
     headers : {
       'Content-Type': 'application/json',
@@ -37,17 +36,14 @@ export async function getBoards() {
   return boards;
 }
 
-export async function updateBoard() {
-  const response = await fetch(`${API_URL}/boards/`, {
-    method: "POST",
+export async function updateBoard(board) {
+  const response = await fetch(`${API_URL}/boards/${board.id}`, {
+    method: "PUT",
     headers:{
       'Content-Type': 'application/json',
       authorization: `Bearer ${localStorage.token}`,
     },
-    body:JSON.stringify({
-      title: title.value,
-      description: description.value,
-    }),
+    body:JSON.stringify(board),
   });
   router.push({name: 'dashboard'});
 }

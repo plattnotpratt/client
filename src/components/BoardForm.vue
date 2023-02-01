@@ -2,6 +2,7 @@
 import { defineProps, ref } from 'vue';
   const props = defineProps(['board']);
   const board = ref({
+    id: props.board.id,
     title: props.board.title,
     description: props.board.description
   })
@@ -10,7 +11,8 @@ import { defineProps, ref } from 'vue';
 <template>
   <div class="row justify-content-center">
     <div class="col-8">
-      <form @submit.prevent="$emit('submitForm', board)">
+      <form @submit.prevent="$emit('submitForm', board, id)">
+
         <div class="form-outline mb-4">
           <input v-model="board.title" type="text" id="title" name="title" class="form-control" />
           <label class="form-label" for="title">Board Title</label>
@@ -20,10 +22,10 @@ import { defineProps, ref } from 'vue';
           <label class="form-label" for="description">Board Description</label>
         </div>
         <!-- Submit button -->
-        <button  type="submit" @click="submit" class="btn btn-primary btn-block mb-4">
+        <button  type="submit" class="btn btn-primary btn-block mb-4">
           <slot name="submit-button" />
         </button>
-        <input type="hidden" @keyup.enter="submit" >
+        <!-- <input type="hidden" @keyup.enter="submit" > -->
       </form>
     </div>
   </div>
